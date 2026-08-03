@@ -1,0 +1,41 @@
+rules:
+  - id: secure-ship.no-hardcoded-aws-key
+    message: "Possible hardcoded AWS access key. Use env/secret manager — never commit credentials."
+    languages: [javascript, typescript, python]
+    severity: ERROR
+    metadata:
+      category: security
+      cwe: "CWE-798"
+      whitehat: defensive
+    patterns:
+      - pattern-regex: 'AKIA[0-9A-Z]{16}'
+
+  - id: secure-ship.no-hardcoded-generic-secret-assign
+    message: "Hardcoded secret-like assignment. Prefer environment variables or a secrets manager."
+    languages: [javascript, typescript]
+    severity: WARNING
+    metadata:
+      category: security
+      cwe: "CWE-798"
+      whitehat: defensive
+    patterns:
+      - pattern: |
+          const $S = "$Y"
+      - metavariable-regex:
+          metavariable: $S
+          regex: (?i)(secret|api[_]?key|password|token|private[_]?key)
+      - metavariable-regex:
+          metavariable: $Y
+          regex: .{12,}
+
+  - id: secure-ship.dangerously-set-inner-html
+    message: "dangerouslySetInnerHTML is an XSS risk without sanitization. Prefer text content or a vetted sanitizer."
+    languages: [typescript, javascript]
+    severity: WARNING
+    metadata:
+      category: security
+      cwe: "CWE-79"
+      whitehat: defensive
+    patterns:
+      - pattern: |
+          <$X dangerouslySetInnerHTML=... />

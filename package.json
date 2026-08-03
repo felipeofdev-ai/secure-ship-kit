@@ -1,0 +1,46 @@
+{
+  "name": "secure-ship-kit",
+  "version": "1.0.0",
+  "description": "Defensive secure-by-default shipping checklist CLI — secrets, HITL gates, CSP headers, LGPD data-minimization. White-hat only.",
+  "type": "module",
+  "bin": {
+    "secure-ship": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "check": "node --import tsx src/cli.ts check",
+    "check:path": "node --import tsx src/cli.ts check",
+    "start": "node --import tsx src/cli.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "security",
+    "whitehat",
+    "owasp",
+    "lgpd",
+    "typescript",
+    "csp",
+    "secrets",
+    "defensive",
+    "secure-by-default",
+    "hitl"
+  ],
+  "author": "Felipe Fernandes <felipe.of.dev@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/felipeofdev-ai/secure-ship-kit.git"
+  },
+  "homepage": "https://github.com/felipeofdev-ai/secure-ship-kit#readme",
+  "bugs": {
+    "url": "https://github.com/felipeofdev-ai/secure-ship-kit/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}

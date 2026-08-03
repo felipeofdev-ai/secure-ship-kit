@@ -1,0 +1,25 @@
+# Semgrep CI — defensive rules only (secure-ship-kit)
+# Copy to .github/workflows/semgrep.yml
+name: Semgrep
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan (defensive configs)
+        run: |
+          semgrep scan --config p/secrets --config p/owasp-top-ten --error
+          if [ -d rules/semgrep ]; then
+            semgrep scan --config rules/semgrep --error
+          fi

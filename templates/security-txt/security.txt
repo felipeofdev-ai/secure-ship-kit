@@ -1,0 +1,11 @@
+# RFC 9116 security.txt example — replace contacts before deploying
+# Place at: https://example.com/.well-known/security.txt
+Contact: mailto:security@example.com
+Contact: https://example.com/security
+Expires: 2027-01-01T00:00:00.000Z
+Preferred-Languages: en, pt-BR
+Canonical: https://example.com/.well-known/security.txt
+Policy: https://example.com/security-policy
+Acknowledgments: https://example.com/hall-of-fame
+# Optional: Hiring white-hats? link your careers / bug bounty page
+Hiring: https://example.com/careers
