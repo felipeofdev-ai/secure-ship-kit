@@ -1,0 +1,39 @@
+# CSP + security headers sketch (Next.js App Router middleware)
+# Copy/adapt — tighten CSP for your real origins. Not a drop-in production policy.
+
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(_request: NextRequest) {
+  const response = NextResponse.next();
+
+  // HSTS: max-age at least 1 year (31536000). Enable only behind HTTPS.
+  response.headers.set(
+    "Strict-Transport-Security",
+    "max-age=31536000; includeSubDomains",
+  );
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  response.headers.set("X-Frame-Options", "DENY"); // prefer CSP frame-ancestors in modern apps
+
+  // Starter CSP — replace 'unsafe-inline' with nonces/hashes for L2+ (OWASP ASVS 3.4.3)
+  response.headers.set(
+    "Content-Security-Policy",
+    [
+      "default-src 'self'",
+      "base-uri 'none'",
+      "object-src 'none'",
+      "frame-ancestors 'none'",
+      "img-src 'self' data:",
+      "script-src 'self'",
+      "style-src 'self'",
+      "connect-src 'self'",
+    ].join("; "),
+  );
+
+  return response;
+}
+
+export const config = {
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+};

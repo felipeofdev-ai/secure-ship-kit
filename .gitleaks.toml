@@ -1,0 +1,8 @@
+# Example gitleaks config — copy/adapt. Defensive secret detection only.
+title = "secure-ship-kit example"
+
+[allowlist]
+description = "Allowlisted paths"
+paths = [
+  '''templates/security-txt/security.txt''',
+]
