@@ -103,6 +103,7 @@ export const CATEGORIES: ChecklistCategory[] = [
           "**/middleware.*",
           "**/helmet*",
           "**/security-headers*",
+          "**/csp-headers*",
           "**/nginx*.conf",
         ],
         contentNeedles: [
@@ -190,6 +191,9 @@ export const CATEGORIES: ChecklistCategory[] = [
           "**/.github/workflows/*sast*",
           "**/.semgrep*",
           "semgrep.yml",
+          "rules/semgrep/**",
+          "templates/github/*codeql*",
+          "templates/github/*semgrep*",
         ],
       },
       {

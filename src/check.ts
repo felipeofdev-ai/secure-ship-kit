@@ -71,15 +71,17 @@ async function walkFiles(root: string, max = 4000): Promise<string[]> {
 
 function matchGlob(rel: string, pattern: string): boolean {
   const norm = rel.replace(/\\/g, "/");
-  const p = pattern.replace(/\\/g, "/");
+  let p = pattern.replace(/\\/g, "/");
   if (p === "**/*") return true;
+  // `**/file` should also match root `file`
+  if (p.startsWith("**/")) p = p.slice(3);
   // Very small glob: ** / * support
   const esc = p
     .replace(/[.+^${}()|[\]\\]/g, "\\$&")
     .replace(/\*\*/g, "§§")
     .replace(/\*/g, "[^/]*")
     .replace(/§§/g, ".*");
-  return new RegExp(`^${esc}$`, "i").test(norm);
+  return new RegExp(`(^|/)${esc}$`, "i").test(norm);
 }
 
 async function readTextSafe(p: string, maxBytes = 200_000): Promise<string | null> {
