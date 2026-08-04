@@ -11,7 +11,8 @@
     "check": "node --import tsx src/cli.ts check",
     "check:path": "node --import tsx src/cli.ts check",
     "start": "node --import tsx src/cli.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test test/*.test.ts"
   },
   "keywords": [
     "security",
